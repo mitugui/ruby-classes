@@ -1,0 +1,19 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: app_development
+    ports:
+    - "5434:5432"
+  
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b 0.0.0.0"
+    volumes:
+    - "./my_ruby_app:/app"
+    ports:
+    - "3000:3000"
+    depends_on:
+    - db
