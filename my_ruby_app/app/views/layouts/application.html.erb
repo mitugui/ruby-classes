@@ -23,6 +23,9 @@
   </head>
 
   <body>
+    <%if admin_signed_in? %>
+      <%= render 'layouts/navbar' %>
+    <% end %>
     <%= yield %>
   </body>
 </html>
