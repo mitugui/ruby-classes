@@ -15,6 +15,12 @@ Rails.application.configure do
   # Enable server timing.
   config.server_timing = true
 
+  config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+
+  LetterOpenerWeb.configure
+
   # Enable/disable Action Controller caching. By default Action Controller caching is disabled.
   # Run rails dev:cache to toggle Action Controller caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
@@ -38,7 +44,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "localhost", port: 3000 }
+  config.action_mailer.default_url_options = { host: ENV['HOST'] || 'localhost', port: ENV['PORT'] || 3000 }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
